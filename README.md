@@ -27,10 +27,11 @@ npm run preview
 - React 19 + Vite 8; source is in `src/main.jsx` and `src/style.css`.
 - RTL patient detail and treatment-note forms, responsive grid, expandable payment rows and a running payment total.
 - No external image/font assets, authentication, persistent records, appointment engine or payment processing.
+- Age, treatment cost, remaining balance and tooth fields are currently inputs/placeholders. The sum of the entered payment amounts is the implemented calculation; the prototype does not calculate age or outstanding balance.
 
-برای بررسی، `npm run build` را اجرا کنید و در پیش‌نمایش، دو ردیف پرداخت با مبلغ دلخواه اضافه کنید؛ جمع باید تغییر کند. دکمه‌های ذخیره و ویرایش غیرفعال‌اند چون در این پیش‌نمونه عملیاتی ندارند. CI نصب وابستگی‌ها و ساخت رابط را بررسی می‌کند؛ آزمون یکپارچهٔ سرور برای این پروژه وجود ندارد.
+برای بررسی، `npm run build` را اجرا کنید و در پیش‌نمایش، دو ردیف پرداخت با مبلغ دلخواه اضافه کنید؛ جمع باید تغییر کند. محاسبه خودکار سن و مانده بدهی پیاده‌سازی نشده و انتخاب دندان نیز یک ورودی متنی است. دکمه‌های ذخیره و ویرایش غیرفعال‌اند چون در این پیش‌نمونه عملیاتی ندارند. CI برای نصب وابستگی‌ها و ساخت رابط تنظیم شده است؛ آزمون یکپارچهٔ سرور برای این پروژه وجود ندارد. نتیجه بررسی محلی در [VALIDATION.md](VALIDATION.md) آمده است.
 
-For a manual check, build and preview the app, add a second payment row, then change both amounts and verify the displayed total. Save/edit controls are disabled because persistence is not implemented. CI checks dependency installation and compilation. There are no backend integration tests.
+For a manual check, build and preview the app, add a second payment row, then change both amounts and verify the displayed total. Save/edit controls are disabled because persistence is not implemented. CI is configured to check dependency installation and compilation; no hosted result is claimed. There are no backend integration tests. See [local validation](VALIDATION.md).
 
 ## منشأ و مرز استفاده | Provenance and limitations
 

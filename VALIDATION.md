@@ -5,4 +5,4 @@
 - `npm run build`: passed.
 - A real Chrome check confirmed two editable payment rows sum 1,250,000 + 750,000 to 2,000,000, unavailable save is disabled, the page returns HTTP 200, no page JavaScript errors occur and no horizontal overflow appears at 390px. The README preview uses an empty form.
 - This prototype has no server/database integration tests. Save/search/edit persistence is intentionally not claimed.
-- Dependency links and generated build output are excluded from the prepared source repository. A fresh dependency download and GitHub Actions run have not been performed locally.
+- Dependency links and generated build output are excluded from the prepared source repository. A fresh dependency download and a hosted GitHub Actions run were not part of this local check.
