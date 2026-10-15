@@ -1,0 +1,64 @@
+name: Publish website to GitHub Pages
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Build for a GitHub project subpath
+        run: npm run build -- --base=./
+      - name: Retain runtime dependency licenses
+        shell: bash
+        run: |
+          mkdir -p dist/licenses
+          cp node_modules/react/LICENSE dist/licenses/react-LICENSE.txt
+          cp node_modules/react-dom/LICENSE dist/licenses/react-dom-LICENSE.txt
+          cp node_modules/scheduler/LICENSE dist/licenses/scheduler-LICENSE.txt
+          touch dist/.nojekyll
+      - name: Upload public site artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy public site
+        id: deployment
+        uses: actions/deploy-pages@v4
